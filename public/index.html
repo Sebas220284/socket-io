@@ -1,3 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,26 +33,6 @@
 <body class="container">
     <h1 class="mt-5">mini chat</h1>
 <hr>
-<form  id="miForm">
-    <div class="row">
-        <div class="col-8">
-            <input type="text" id="txtMensaje" placeholder="mensaje" class="form-control">
-
-        </div>
-        <div class="col-4">
-            <button class="btn btn-primary" type="submit">Enviar</button>
-        </div>
-    </div>
-</form>
-
-<div class="row">
-    <div class="col">
-        <ul id="misMensaje">
-          
-
-        </ul>
-    </div>
-</div>
 
 
 
@@ -41,22 +40,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         //on recibe el mensaje 
-      const socket=  io('http://localhost:8080')
-      const formulario=document.querySelector('#miForm')
-       const mensaje= document.querySelector('#misMensaje')
-      const txtMensaje=document.querySelector('#txtMensaje')
+      const socket=  io('https://server-socket-sebastian.herokuapp.com')
+      https://server-socket-sebastian.herokuapp.com
 
-
-formulario.addEventListener('submit',(ev)=>{
-ev.preventDefault()
-
-
-const nuevoMensaje=txtMensaje.value
-socket.emit('mensaje-to-server',{texto:nuevoMensaje})
-
-})
 socket.on('mensaje-from-server',(data)=>{
-mensaje.innerHTML+= `<li >${data.texto}</li>`
+
 })
 
 
