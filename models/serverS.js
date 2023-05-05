@@ -27,6 +27,7 @@ class Server {
   execute() {
     this.middlewares();
     this.configureSockets();
+    this.app.use(cors());
     this.server.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
