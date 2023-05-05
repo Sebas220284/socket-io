@@ -1,36 +1,47 @@
-const express = require('express');
-const http = require('http');
-const socketio = require('socket.io');
-const path = require('path');
-const cors = require('cors'); // Importar el paquete cors
-const Sockets = require('./sockets');
+const express= require('express')
+const http= require('http')
+const socketio=require('socket.io')
+const path=require('path')
+const Sockets=require('./sokets')
 
-class Server {
-  constructor() {
-    this.app = express();
-    this.port = 8000;
-    this.server = http.createServer(this.app);
-    this.io = socketio(this.server, {});
+class Server{
+    constructor(){
+        this.app=express();
+        this.port= 8000
+        
 
-    // Agregar el middleware de cors
-    this.app.use(cors());
-  }
 
-  configurarSockets() {
-    new Sockets(this.io);
-  }
+        //http server
+this.server=http.createServer(this.app)
 
-  middlewares() {
-    this.app.use(express.static(path.resolve(__dirname, '../public')));
-  }
 
-  execute() {
-    this.middlewares();
-    this.configurarSockets();
-    this.server.listen(this.port, () => {
-      console.log('Server corriendo', this.port);
-    });
-  }
+        //configuraciones de sockts
+        this.io=socketio(this.server,{})
+        
+    }
+
+consfigurarSockets(){
+new Sockets(this.io)
 }
 
-module.exports = Server;
+    middlewares(){
+       this.app.use(express.static(path.resolve(__dirname,'../public')  ))
+    }
+    execute(){
+
+//inicializar middlewares
+
+this.middlewares()
+
+//inicializar sockets
+this.consfigurarSockets()
+
+        this.server.listen(this.port,()=>{
+            console.log('server corriendo',this.port)
+        });
+    }
+}
+
+
+
+module.exports=Server
