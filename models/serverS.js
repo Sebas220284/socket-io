@@ -1,14 +1,15 @@
+const path = require('path');
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-const cors = require('cors'); // Importar el paquete de cors
-
-const Sockets = require('./sockets');
+const cors = require('cors');
+const Sockets = require('./sokets');
+require('dotenv').config();
 
 class Server {
   constructor() {
     this.app = express();
-    this.port = 8000;
+    this.port = process.env.PORT || 8000;
     this.server = http.createServer(this.app);
     this.io = socketio(this.server, {});
   }
@@ -18,16 +19,13 @@ class Server {
   }
 
   middlewares() {
-    // Habilitar cors
     this.app.use(cors());
-
     this.app.use(express.static(path.resolve(__dirname, '../public')));
   }
 
   execute() {
     this.middlewares();
     this.configureSockets();
-    this.app.use(cors());
     this.server.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
